@@ -37,7 +37,11 @@ $ curl -X POST \
   'http://localhost:8888/dev/send_sms?number=9838878787&message=hi%20User&topic=testtopic' \
   -H 'cache-control: no-cache'
 ```
-All the parameters are mandotary in the request. (i.e number, message and topic)
+
+The required parameters in the request are :
+* **numbers** [array] : Array of numbers to whom message is to be sent.
+* **message** [string] : Message that is to be sent in SMS.
+* **topic** [string] : SNS topic name.
 
 ## Deployment
 To deploy your application to AWS, you need to just run single command

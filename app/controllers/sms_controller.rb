@@ -3,13 +3,15 @@ class SmsController < ApplicationController
 
   before_action :initialize_sns
   before_action :create_topic
-  before_action :set_number
+  before_action :set_numbers
   before_action :set_message
 
   def send_sms
     begin
       remove_previous_subscriptions(@topic)
-      subscription = @topic.subscribe({protocol: 'sms', endpoint: @number})
+      @numbers.each do |number|
+        @topic.subscribe({protocol: 'sms', endpoint: number})
+      end
       @topic.publish({ message: @message })
       render json: {success: true, message: "SMS send successfully!", status: 200}
     rescue Aws::SNS::Errors::ServiceError => error
@@ -27,10 +29,13 @@ class SmsController < ApplicationController
       end
     end
 
-    def set_number
-      if params[:number].present? 
-        number =Phonelib.parse(params[:number])
-        @number = number.international(false)
+    def set_numbers
+      if params[:numbers].present? 
+        @numbers = []
+        params[:numbers].uniq.each do |number|
+          parse_number =Phonelib.parse(number)
+          @numbers << parse_number.international(false)
+        end
       else
         render json: {success: false, message: "Please pass the phone number value", status: 200}
       end
