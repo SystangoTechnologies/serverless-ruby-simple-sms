@@ -2,33 +2,24 @@ class SmsController < ApplicationController
   include ApplicationHelper
 
   before_action :initialize_sns
-  before_action :create_topic
   before_action :set_numbers
   before_action :set_message
 
   def send_sms
     begin
-      remove_previous_subscriptions(@topic)
+      topic = create_topic(@sns)
+      remove_previous_subscriptions(topic)
       @numbers.each do |number|
-        @topic.subscribe({protocol: 'sms', endpoint: number})
+        topic.subscribe({protocol: 'sms', endpoint: number})
       end
-      @topic.publish({ message: @message })
-      render json: {success: true, message: "SMS send successfully!", status: 200}
+      topic.publish({ message: @message })
+      render json: {message: "SMS send successfully!"}, status: 201
     rescue Aws::SNS::Errors::ServiceError => error
-      render json: {success: false, message: error, status: 200}
+      render json: {message: error}, status: 422
     end
   end
 
   private
-  
-    def create_topic
-      if params[:topic].present? 
-        @topic = @sns.create_topic(name: params[:topic])
-      else
-        render json: {success: false, message: "Please pass the topic value", status: 200}
-      end
-    end
-
     def set_numbers
       if params[:numbers].present? 
         @numbers = []
@@ -37,7 +28,7 @@ class SmsController < ApplicationController
           @numbers << parse_number.international(false)
         end
       else
-        render json: {success: false, message: "Please pass the phone number value", status: 200}
+        render json: {message: "Please pass the phone number value"}, status: 400
       end
     end
 
@@ -45,7 +36,7 @@ class SmsController < ApplicationController
       if params[:message].present? 
         @message = params[:message]
       else
-        render json: {success: false, message: "Please pass the message value", status: 200}
+        render json: {message: "Please pass the message value"}, status: 400
       end
     end
 

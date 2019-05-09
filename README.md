@@ -34,20 +34,22 @@ To send a SMS, you can hit the following endpoint as a POST request.
 
 ```ruby_on_rails
 $ curl -X POST \
-  'http://localhost:8888/dev/send_sms?number=9838878787&message=hi%20User&topic=testtopic' \
-  -H 'cache-control: no-cache'
+  http://localhost:8888/send_sms \
+  -H 'Authorization: {YOUR AUTHORIZATION KEY}' \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{"numbers": ["91XXXXXXXX", "91XXXXXXXX"],"message": "HI"}'
 ```
 
 The required parameters in the request are :
 * **numbers** [array] : Array of numbers to whom message is to be sent.
 * **message** [string] : Message that is to be sent in SMS.
-* **topic** [string] : SNS topic name.
 
 ## Deployment
 To deploy your application to AWS, you need to just run single command
 
 ```ruby_on_rails
-$ jets deploy
+$ jets deploy production
 ```
 
 Once the application is deployed you will get the API endpoint using which you can access Live API.
