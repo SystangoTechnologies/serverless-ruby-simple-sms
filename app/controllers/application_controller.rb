@@ -1,6 +1,6 @@
 class ApplicationController < Jets::Controller::Base
   include ApplicationHelper
-  before_action :authorize
+  # before_action :authorize
 
   private
   def authorize
