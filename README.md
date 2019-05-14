@@ -7,7 +7,7 @@ This is a simple serverless application build over Jets framework of the ruby. T
 ## Setup
 
 ### Step 1 - Install RVM
-*Follow the steps given here: https://rvm.io/rvm/install, to install RVM in your machines
+* Follow the steps given here: https://rvm.io/rvm/install, to install RVM in your machines
 
 ### Step 2 - Install Ruby
 To install ruby(2.5.1) in your machine, run following command
@@ -63,4 +63,4 @@ Once the application is deployed you will get the API endpoint using which you c
 
 Once API gateway is created, you must setup Usage plan along with their API Keys form API gateway console. For this, you can follow the [official doc](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-setup-api-key-with-console.html) for the same given by AWS.
 
-To make your custom authorization, just comment out the before_filter:authorize line in application.rb to make your custom authorization work.
+If you want a custom authorization instead of this, just comment out the **before_filter:authorize** line in application.rb to make custom authorization work.
