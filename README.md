@@ -22,8 +22,8 @@ $ aws configure
 ### Step 4 - Take clone of the repository
 
 ```ruby_on_rails
-$ git clone https://gitlab.com/prateek-systango/serverless-sms-service.git
-$ cd serverless-sms-service
+$ git clone https://github.com/SystangoTechnologies/serverless-ruby-simple-sms.git
+$ cd serverless-ruby-simple-sms
 $ bundle install
 ```
 ### Step 5 - Run Application
