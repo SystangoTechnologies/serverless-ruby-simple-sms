@@ -7,12 +7,11 @@ class SmsController < ApplicationController
 
   def send_sms
     begin
-      topic = create_topic(@sns)
-      remove_previous_subscriptions(topic)
+      attributes = { 'DefaultSMSType' => 'Transactional' }
+      @sns.set_sms_attributes({ attributes: attributes })
       @numbers.each do |number|
-        topic.subscribe({protocol: 'sms', endpoint: number})
+        @sns.publish(phone_number: number, message: @message)
       end
-      topic.publish({ message: @message })
       render json: {message: "SMS send successfully!"}, status: 201
     rescue Aws::SNS::Errors::ServiceError => error
       render json: {message: error}, status: 422
@@ -21,7 +20,7 @@ class SmsController < ApplicationController
 
   private
     def set_numbers
-      if params[:numbers].present? 
+      if params[:numbers].present?
         @numbers = []
         params[:numbers].uniq.each do |number|
           parse_number =Phonelib.parse(number)
@@ -33,7 +32,7 @@ class SmsController < ApplicationController
     end
 
     def set_message
-      if params[:message].present? 
+      if params[:message].present?
         @message = params[:message]
       else
         render json: {message: "Please pass the message value"}, status: 400
@@ -41,6 +40,6 @@ class SmsController < ApplicationController
     end
 
     def initialize_sns
-      @sns = Aws::SNS::Resource.new()
+      @sns = Aws::SNS::Client.new
     end
 end
