@@ -822,7 +822,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     mysql2 (0.5.2)
-    nokogiri (1.10.3)
+    nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     parallel (1.18.0)
     parser (2.6.5.0)
