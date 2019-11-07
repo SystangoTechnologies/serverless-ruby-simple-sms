@@ -1,0 +1,8 @@
+AllCops:
+  Exclude:
+    - db/**
+    - tmp/**
+Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 100
