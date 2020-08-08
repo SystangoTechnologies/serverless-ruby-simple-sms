@@ -1013,7 +1013,8 @@ GEM
       loofah (~> 2.2, >= 2.2.2)
     jmespath (1.4.0)
     json (2.3.0)
-    kramdown (2.1.0)
+    kramdown (2.3.0)
+      rexml
     launchy (2.4.3)
       addressable (~> 2.3)
     loofah (2.4.0)
@@ -1053,6 +1054,7 @@ GEM
     rake (13.0.1)
     recursive-open-struct (1.1.0)
     regexp_parser (1.6.0)
+    rexml (3.2.4)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
