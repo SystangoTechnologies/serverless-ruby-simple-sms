@@ -1011,7 +1011,7 @@ GEM
       gems
     jets-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     json (2.3.0)
     kramdown (2.1.0)
     launchy (2.4.3)
